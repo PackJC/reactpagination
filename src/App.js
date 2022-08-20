@@ -3,12 +3,13 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import Records from "./components/Records";
 import Pagination from "./components/Pagination";
+import Filtering from "./components/Filtering";
 
 function App() {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
-    const [recordsPerPage] = useState(10);
+    const [recordsPerPage, setRecordsPerPage] = useState(15);
     const indexOfLastRecord = currentPage * recordsPerPage;
     const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
     const currentRecords = data.slice(indexOfFirstRecord, indexOfLastRecord);
@@ -26,17 +27,30 @@ function App() {
         })
   }, [])
 
-  return (
-    <div className="container">
-        <h2> React: Simple Pagination Example </h2>
-        <Records data={currentRecords}/>
-        <Pagination
-            nPages={nPages}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-        />
-    </div>
-  );
+    if(loading) {
+        return ( <p>Data is loading</p>);
+    }
+    else {
+        return (
+            <div className="container">
+                <h2> React: Simple Pagination Example </h2>
+
+                <Filtering
+                    setRecordsPerPage={setRecordsPerPage}
+                    recordsPerPage={recordsPerPage}
+                />
+
+                <Records data={currentRecords}/>
+
+                <Pagination
+                    nPages={nPages}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+
+                />
+            </div>
+        );
+    }
 }
 
 export default App;
