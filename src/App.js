@@ -14,6 +14,8 @@ function App() {
     const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
     const currentRecords = data.slice(indexOfFirstRecord, indexOfLastRecord);
     const nPages = Math.ceil(data.length / recordsPerPage);
+    const [maxPageLimit, setMaxPageLimit] = useState(5);
+    const [minPageLimit, setMinPageLimit] = useState(0);
 
 
     useEffect(() => {
@@ -46,7 +48,10 @@ function App() {
                     nPages={nPages}
                     currentPage={currentPage}
                     setCurrentPage={setCurrentPage}
-
+                    maxPageLimit={maxPageLimit}
+                    setMaxPageLimit={setMaxPageLimit}
+                    minPageLimit={minPageLimit}
+                    setMinPageLimit={setMinPageLimit}
                 />
             </div>
         );
