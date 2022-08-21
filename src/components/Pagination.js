@@ -11,6 +11,14 @@ const Pagination = ({ nPages, currentPage, setCurrentPage, maxPageLimit, minPage
         }
         setCurrentPage(prev=>prev+1);
     }
+    const forwardEllip = () => {
+        if(currentPage+3 > maxPageLimit){
+            setMaxPageLimit(maxPageLimit + pageNumberLimit);
+            setMinPageLimit(minPageLimit + pageNumberLimit);
+        }
+        setCurrentPage(prev=>prev+3);
+
+    }
     const forwardPage = () => {
         if(currentPage < nPages){
             return (
@@ -21,7 +29,7 @@ const Pagination = ({ nPages, currentPage, setCurrentPage, maxPageLimit, minPage
                         </button>
                     </li>
                     <li className="page-item">
-                        <button disabled={currentPage === nPages} className="btn page-link" >
+                        <button disabled={currentPage === nPages} className="btn page-link" onClick={forwardEllip}>
                             &hellip;
                         </button>
                     </li>
@@ -37,13 +45,20 @@ const Pagination = ({ nPages, currentPage, setCurrentPage, maxPageLimit, minPage
         }
         setCurrentPage(prev=> prev-1);
     }
+    const backEllip = () => {
+        if((currentPage-3) ){
+            setMaxPageLimit(maxPageLimit - pageNumberLimit);
+            setMinPageLimit(minPageLimit - pageNumberLimit);
+        }
+        setCurrentPage(prev=>prev-3);
 
+    }
     const backPage = () => {
         if(currentPage > 1){
             return (
                 <div className='pagination'>
                     <li className="page-item">
-                        <button disabled={currentPage===1} className="btn page-link" >
+                        <button disabled={currentPage===1} className="btn page-link" onClick={backEllip} >
                             &hellip;
                         </button>
                     </li>
@@ -66,7 +81,8 @@ const Pagination = ({ nPages, currentPage, setCurrentPage, maxPageLimit, minPage
                     </button>
                 </li>
             );
-        }else{
+        }
+        else {
             return null;
         }
     })
